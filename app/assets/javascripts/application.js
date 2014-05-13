@@ -21,3 +21,16 @@
 //= require_tree ./views
 //= require_tree ./routers
 //= require_tree .
+
+$(document).ready(function() {
+  $.ajax({
+    url: 'posts',
+    method: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      var view = new JournalApp.Views.PostsIndexView({collection: response});
+      $('body').append(view.render().$el);
+    }
+  })
+
+})
