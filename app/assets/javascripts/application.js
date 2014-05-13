@@ -28,7 +28,9 @@ $(document).ready(function() {
     method: 'GET',
     dataType: 'json',
     success: function(response) {
-      var view = new JournalApp.Views.PostsIndexView({collection: response});
+      collection = new JournalApp.Collections.Posts(response);
+      console.log(collection);
+      var view = new JournalApp.Views.PostsIndexView({collection: collection});
       $('body').append(view.render().$el);
     }
   })
