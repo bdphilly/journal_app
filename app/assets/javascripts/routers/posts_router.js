@@ -14,8 +14,7 @@ JournalApp.Routers.PostRouter = Backbone.Router.extend({
   },
 
   postShow: function (id) {
-    var post = JournalApp.Collections.Posts.get(id);
-
+    var post = JournalApp.Collections.posts.get(id);
     var showView = new JournalApp.Views.PostShow({
       model: post
     });
