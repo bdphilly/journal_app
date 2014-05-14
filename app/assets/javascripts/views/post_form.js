@@ -23,10 +23,12 @@ JournalApp.Views.PostForm = Backbone.View.extend({
     var that = this;
     this.model.save({}, {
       success: function () {
-        Backbone.history.navigate("posts/" + that.model.get('id'),
+        debugger
+        Backbone.history.navigate("#/posts",
           { trigger: true });
       },
       error: function (model, response) {
+        debugger
         var renderedTemplate = that.template({
           title: postParams['title'],
           body: postParams['body'],
@@ -34,7 +36,7 @@ JournalApp.Views.PostForm = Backbone.View.extend({
         });
         that.$el.html(renderedTemplate)
       }
-    })
-  }
+    });
+  },
 
 })
