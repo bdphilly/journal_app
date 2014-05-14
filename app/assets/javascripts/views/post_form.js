@@ -8,6 +8,7 @@ JournalApp.Views.PostForm = Backbone.View.extend({
       errors: ''
     });
     this.$el.html(renderedTemplate);
+
     return this;
   },
 
@@ -18,17 +19,25 @@ JournalApp.Views.PostForm = Backbone.View.extend({
     event.preventDefault();
 
     var $target = $(event.currentTarget)
-    var postParams = $target.serializeJSON()["post"];
+    var postParams = $target.serializeJSON();
+
+    // function success () {
+    //   Backbone.history.navigate("", { trigger:true })
+    // }
+
     this.model.set(postParams)
-    var that = this;
+    // var that = this;
+
+    // this.model.save({}, {
+    //   success: success
+    // });
+
     this.model.save({}, {
       success: function () {
-        debugger
-        Backbone.history.navigate("#/posts",
+        Backbone.history.navigate("",
           { trigger: true });
       },
       error: function (model, response) {
-        debugger
         var renderedTemplate = that.template({
           title: postParams['title'],
           body: postParams['body'],

@@ -10,7 +10,9 @@ JournalApp.Views.PostsIndexView = Backbone.View.extend({
   },
 
   render: function () {
-    var renderedTemplate = this.template({posts: this.collection });
+    var renderedTemplate = this.template({
+      posts: this.collection
+    });
     this.$el.html(renderedTemplate);
 
     return this;
@@ -24,10 +26,7 @@ JournalApp.Views.PostsIndexView = Backbone.View.extend({
     var $target = $(event.target);
     var post = this.collection.get($target.data('id'));
     var that = this;
-    post.destroy({
-      success: function () {
-        //
-      }
-    });
+    post.destroy();
   },
-})
+
+});

@@ -5,13 +5,14 @@ window.JournalApp = {
   Routers: {},
   initialize: function() {
     JournalApp.Collections.posts = new JournalApp.Collections.Posts();
-    JournalApp.Collections.posts.fetch({success: function () {
-      new JournalApp.Routers.PostRouter();
-      Backbone.history.start()
-    }});
+
+    new JournalApp.Routers.PostRouter({
+      "$rootEl": $("#content")
+    });
+    Backbone.history.start();
   }
 };
 
-$(document).ready(function(){
+$(document).ready(function() {
   JournalApp.initialize();
 });
