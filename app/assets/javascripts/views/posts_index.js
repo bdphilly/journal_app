@@ -18,14 +18,13 @@ JournalApp.Views.PostsIndexView = Backbone.View.extend({
     return this;
   },
 
-  events: _.extend({
-    'click button.button-delete': 'deletePost'
-  }, Backbone.View.prototype.events),
+  events: {
+    'click .button-delete': 'deletePost'
+  },
 
   deletePost: function (event) {
     var $target = $(event.target);
-    var post = this.collection.get($target.data('id'));
-    var that = this;
+    var post = this.collection.get($target.attr('data-id'));
     post.destroy();
   },
 

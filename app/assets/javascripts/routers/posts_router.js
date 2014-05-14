@@ -27,7 +27,7 @@ JournalApp.Routers.PostRouter = Backbone.Router.extend({
   postNew: function () {
     var newPost = new JournalApp.Models.Post();
     var newView = new JournalApp.Views.PostForm({
-      collection: JournalApp.Collections.post,
+      collection: JournalApp.Collections.posts,
       model: newPost
     });
 

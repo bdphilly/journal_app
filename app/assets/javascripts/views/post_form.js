@@ -3,49 +3,57 @@ JournalApp.Views.PostForm = Backbone.View.extend({
 
   render: function () {
     var renderedTemplate = this.template({
-      title: this.model.get('title'),
-      body: this.model.get('body'),
-      errors: ''
+      post: this.model
+      // title: this.model.get('title'),
+//       body: this.model.get('body'),
+      // errors: ''
     });
     this.$el.html(renderedTemplate);
 
     return this;
   },
 
-  events: _.extend({ 'submit form' : 'updatePost' },
-    Backbone.View.prototype.events),
+  events: { 'click input[type="submit"]' : 'updatePost' },
 
   updatePost: function (event) {
     event.preventDefault();
 
-    var $target = $(event.currentTarget)
-    var postParams = $target.serializeJSON();
+    var $target = $(event.target.form)
+    var postParams = $target.serializeJSON()["post"];
 
-    // function success () {
-    //   Backbone.history.navigate("", { trigger:true })
-    // }
+    var that = this;
 
-    this.model.set(postParams)
-    // var that = this;
+    function success () {
+      debugger
+       Backbone.history.navigate("", { trigger: true });
+     }
 
-    // this.model.save({}, {
-    //   success: success
-    // });
-
-    this.model.save({}, {
-      success: function () {
-        Backbone.history.navigate("",
-          { trigger: true });
-      },
-      error: function (model, response) {
-        var renderedTemplate = that.template({
-          title: postParams['title'],
-          body: postParams['body'],
-          errors: response.responseText,
-        });
-        that.$el.html(renderedTemplate)
-      }
-    });
+    this.model.set(postParams);
+    if (this.model.isNew()) {
+      this.collection.create(this.model, {
+        success: success
+      });
+    } else {
+      debugger
+      this.model.save({},{
+        success: function(){
+          alert("test")
+        },
+        error: function(object, response){
+          // debugger
+          alert("I am fucking up")
+        }
+        // error: function (model, response) {
+  //         var renderedTemplate = that.template({
+  //           title: postParams['title'],
+  //           body: postParams['body'],
+  //
+  //           // errors: response.responseText,
+  //         });
+  //         alert('some errors man!')
+  //         that.$el.html(renderedTemplate)
+        // }
+      });
+    }
   },
-
-})
+});
